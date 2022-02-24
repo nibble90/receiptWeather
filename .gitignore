@@ -1,0 +1,10 @@
+__pycache__/
+[Ll]ib/
+[Ss]cripts/
+[Ii]nclude/
+bin/
+lib64
+share/
+pyvenv.cfg
+*.db
+.vscode/
