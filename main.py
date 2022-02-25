@@ -1,10 +1,7 @@
-from re import S
 from escpos import printer
 from os import getenv
 from dotenv import load_dotenv
 from pyowm import OWM
-from pyowm.utils import config
-from pyowm.utils import timestamps
 
 class ReceiptWeather:
     def __init__(self):
