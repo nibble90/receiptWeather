@@ -6,13 +6,14 @@ from sys import exit
 from newsapi import NewsApiClient
 
 class ReceiptWeather:
-    def __init__(self, dummy=False):
+    def __init__(self, source, dummy=False):
         try:
             load_dotenv(dotenv_path=".env")
             self.owm = OWM(getenv('OPENWEATHERAPIKEY'))
             self.city_id = int(getenv('WEATHERID'))
             self.newsAPI = NewsApiClient(api_key=getenv('NEWSAPIKEY'))
             self.print_array = []
+            self.source = source
 
             self.mgr = self.owm.weather_manager()
               
@@ -51,7 +52,7 @@ class ReceiptWeather:
         for message in messages: self.print_array.append(message)
 
     def get_top_5_news(self):
-        messages = self.newsAPI.get_top_headlines(sources='bbc-news')['articles']
+        messages = self.newsAPI.get_top_headlines(sources=self.source)['articles']
         self.print_array.append("--------------------")
         for message in messages: messages = self.print_array.append(message['title'])
 
@@ -69,7 +70,9 @@ class ReceiptWeather:
 
 if __name__ == "__main__":
     dummy = True
-    obj = ReceiptWeather(dummy=dummy)
+    source = 'bbc-news'
+    # source = 'independent'
+    obj = ReceiptWeather(dummy=dummy, source=source)
     obj.assemble_print()
     if(dummy):
         print(obj.p.output.decode("utf-8"))
